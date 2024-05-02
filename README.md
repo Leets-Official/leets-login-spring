@@ -38,6 +38,7 @@
 ## 기능 요구사항
 
 ---
+### 예시 페이지
 <img width="1172" alt="Screenshot 2024-05-02 at 6 31 29 PM" src="https://github.com/Leets-Official/leets-login-spring/assets/136783693/ed4ad02b-4b69-4ef8-b7ca-22c78931bc2e">
 
 ## API 명세서

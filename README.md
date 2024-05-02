@@ -38,7 +38,7 @@
 ## 기능 요구사항
 
 ---
-![Screenshot 2024-05-02 at 5.34.09 PM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fgc%2Fc5w0ldwx5vv11gs9qldzld180000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_pg67jb%2FScreenshot%202024-05-02%20at%205.34.09%20PM.png)
+<img width="1172" alt="Screenshot 2024-05-02 at 6 31 29 PM" src="https://github.com/Leets-Official/leets-login-spring/assets/136783693/ed4ad02b-4b69-4ef8-b7ca-22c78931bc2e">
 
 ## API 명세서
 
@@ -115,7 +115,7 @@ GET /attendances/rates - 출석률 조회
 ---
 ## Back End
 - **Spring을 통해 서비스**
-- JWT를 사용해 로그인 유지
+- JWT를 사용해 로그인 기능 구현
 - FE에서 사용할 api 제작
 - 예외 처리를 해야 합니다
 - 모든 정보 저장 및 계산

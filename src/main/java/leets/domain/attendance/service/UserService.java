@@ -18,4 +18,8 @@ public class UserService {
         User encoded = user.encodePassword(encrypt);
         return userRepository.save(encoded);
     }
+
+    public boolean checkIdDuplication(String joinId) {
+        return userRepository.existsByJoinId(joinId);
+    }
 }

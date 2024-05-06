@@ -15,6 +15,9 @@ public class User {
     private String name;
 
     @Column(nullable = false)
+    private String joinId;
+
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)

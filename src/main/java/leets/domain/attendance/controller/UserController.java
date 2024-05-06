@@ -1,5 +1,6 @@
 package leets.domain.attendance.controller;
 
+import leets.domain.attendance.controller.dto.JoinIdDuplicationResponse;
 import leets.domain.attendance.domain.user.User;
 import leets.domain.attendance.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,11 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
+    @GetMapping("/duplication/{joinId}")
+    public ResponseEntity<JoinIdDuplicationResponse> checkIdDuplication(@PathVariable String joinId) {
+        boolean isDuplicated = userService.checkIdDuplication(joinId);
 
+        JoinIdDuplicationResponse body = new JoinIdDuplicationResponse(isDuplicated);
+        return ResponseEntity.ok(body);
+    }
 }

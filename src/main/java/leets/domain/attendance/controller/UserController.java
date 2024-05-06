@@ -1,7 +1,7 @@
-package leets.attendance.controller;
+package leets.domain.attendance.controller;
 
-import leets.attendance.domain.user.User;
-import leets.attendance.service.UserLoginService;
+import leets.domain.attendance.domain.user.User;
+import leets.domain.attendance.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,4 +23,6 @@ public class UserController {
         URI uri = URI.create("/users/" + save.getId());
         return ResponseEntity.created(uri).build();
     }
+
+
 }

@@ -1,6 +1,6 @@
-package leets.attendance.domain.user.repository;
+package leets.domain.attendance.domain.user.repository;
 
-import leets.attendance.domain.user.User;
+import leets.domain.attendance.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

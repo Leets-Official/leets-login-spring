@@ -20,5 +20,10 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Position position;
+
+    public User encodePassword(String encode) {
+        this.password = encode;
+        return this;
+    }
 }
 

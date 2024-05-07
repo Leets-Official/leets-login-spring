@@ -1,7 +1,9 @@
 package leets.attendance.src.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import leets.attendance.src.dto.UserRequestDto;
 import lombok.Getter;
@@ -18,7 +20,7 @@ public class User {
     private String id;
 
     @NotNull
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  // 리턴 dto는 따로 두지 않을 생각이므로 객체를 리턴할 땐 보안상 이슈로 비밀번호는 리턴 X
     private String pwd;
 
     @NotNull

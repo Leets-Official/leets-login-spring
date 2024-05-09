@@ -26,11 +26,11 @@ public class UserService {
                 .password(userRequest.getPassword())
                 .build();
         userRepository.save(user);
-        UserResponse userResponse = UserResponse.builder()
+
+        return UserResponse.builder()
                 .userId(user.getUserId())
                 .name(user.getName())
                 .part(user.getPart())
                 .build();
-        return userResponse;
     }
 }

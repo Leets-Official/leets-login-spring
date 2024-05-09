@@ -1,4 +1,14 @@
 package leets.attendance.global.error;
 
-public class ServiceException {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class ServiceException extends RuntimeException {
+    private final int errorCode;
+    protected ServiceException(int errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+    }
 }

@@ -2,6 +2,7 @@ package leets.attendance.domain.attendance.domain;
 
 
 import jakarta.persistence.*;
+import leets.attendance.domain.user.domain.User;
 import leets.attendance.global.BaseTimeEntity;
 import lombok.*;
 
@@ -24,4 +25,8 @@ public class Attendance extends BaseTimeEntity {
 
     @Column(nullable = false)
     private Boolean isAttend;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

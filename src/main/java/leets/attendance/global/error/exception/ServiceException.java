@@ -1,6 +1,6 @@
-package com.moodmate.moodmatebe.global.error.exception;
+package leets.attendance.global.error.exception;
 
-import com.moodmate.moodmatebe.global.error.ErrorCode;
+import leets.attendance.global.error.dto.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

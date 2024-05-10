@@ -18,6 +18,7 @@ public class UserJoinService {
 
     public void register(UserDTO dto){
 
+
         validateDuplicateUser(dto);
         validatePasswordInput(dto);
 
@@ -27,6 +28,7 @@ public class UserJoinService {
                 .partName(dto.getPartName())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .build());
+        log.info("User {} registered", dto.getName());
     }
 
     //중복 회원 검증

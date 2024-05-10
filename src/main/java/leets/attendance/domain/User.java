@@ -27,14 +27,14 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private String partname;
+    private String partName;
 
     @Builder
-    public User(String userid, String password, String name, String partname) {
+    public User(String userid, String password, String name, String partName) {
         this.userid = userid;
         this.password = password;
         this.name = name;
-        this.partname = partname;
+        this.partName = partName;
     }
 
     @Override

@@ -6,6 +6,9 @@ import leets.attendance.domain.user.domain.User;
 import leets.attendance.global.BaseTimeEntity;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Setter
 @Getter
@@ -26,7 +29,11 @@ public class Attendance extends BaseTimeEntity {
     @Column(nullable = false)
     private Boolean isAttend;
 
+    @Column
+    private LocalDate attendanceTime;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 }

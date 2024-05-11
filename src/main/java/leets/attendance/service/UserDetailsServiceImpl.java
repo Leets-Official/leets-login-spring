@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         if (foundUser == null) {
             log.error("User not found");
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("User not found");
         }
         return foundUser;
     }

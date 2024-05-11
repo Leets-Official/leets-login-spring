@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -36,7 +35,7 @@ class UserJoinServiceTest {
         userJoinService.register(userDTO);
 
         //then
-        assertThat(userDTO.getUserid()).isEqualTo((userRepository.findByUserid(userDTO.getUserid())).getUsername());
+        assertThat((userRepository.findByUserid(userDTO.getUserid())).getUsername()).isEqualTo(userDTO.getUserid());
     }
 
     @Test
@@ -61,12 +60,13 @@ class UserJoinServiceTest {
         userJoinService.register(dto1);
 
         //then
-        IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> {
-            userJoinService.register(dto2);});
-        assertEquals("User already exists", thrown.getMessage());
+        IllegalStateException e = assertThrows(IllegalStateException.class, () ->
+            userJoinService.register(dto2));
+        assertThat(e.getMessage()).isEqualTo("User already exists");
     }
 
     @Test
+    @Transactional
     void 비밀번호_확인_테스트(){
         //given
         UserDTO userDTO = new UserDTO();
@@ -80,8 +80,8 @@ class UserJoinServiceTest {
         //2차 비밀번호 입력이 틀리면 테스트 성공
 
         //then
-        IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> {
-            userJoinService.register(userDTO);});
-        assertEquals("Password does not match", thrown.getMessage());
+        IllegalStateException e = assertThrows(IllegalStateException.class, () ->
+            userJoinService.register(userDTO));
+        assertThat(e.getMessage()).isEqualTo("Password does not match");
     }
 }

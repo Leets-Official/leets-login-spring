@@ -4,7 +4,7 @@ import leets.attendance.domain.user.application.UserService;
 import leets.attendance.domain.user.dto.LoginRequest;
 import leets.attendance.domain.user.dto.UserRequest;
 import leets.attendance.domain.user.dto.UserResponse;
-import leets.attendance.global.ResponseDto;
+import leets.attendance.global.dto.ResponseDto;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package leets.attendance.global;
+package leets.attendance.global.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

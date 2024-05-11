@@ -15,4 +15,5 @@ public class UserResponse {
     private UUID userId;
     private String name;
     private String part;
+    private String token;
 }

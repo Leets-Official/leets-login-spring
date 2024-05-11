@@ -1,6 +1,6 @@
 package leets.attendance.global.error;
 
-import leets.attendance.global.ResponseDto;
+import leets.attendance.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

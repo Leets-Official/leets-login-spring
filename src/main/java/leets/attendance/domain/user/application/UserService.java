@@ -10,6 +10,7 @@ import leets.attendance.domain.user.exception.InvalidIdException;
 import leets.attendance.domain.user.exception.InvalidPasswordException;
 import leets.attendance.domain.user.exception.ConflictIdException;
 import leets.attendance.domain.user.repository.UserRepository;
+import leets.attendance.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final AttendanceService attendanceService;
-
+    private final TokenProvider tokenProvider;
     public UserResponse register(UserRequest userRequest) throws Exception{
         String id = userRequest.getId();
         if(userRepository.findById(id).isPresent()){
@@ -41,7 +42,7 @@ public class UserService {
 
     public UserResponse login(LoginRequest loginRequest) throws Exception{
         String id = loginRequest.getId();
-        if(userRepository.findById(id).isPresent()){
+        if(!userRepository.findById(id).isPresent()){
             throw new InvalidIdException();
         }
         String password = loginRequest.getPassword();
@@ -49,10 +50,12 @@ public class UserService {
         if(!user.getPassword().equals(password)){
             throw new InvalidPasswordException();
         }
+        String token = tokenProvider.createToken(user.getName());
         return UserResponse.builder()
                 .userId(user.getUserId())
                 .name(user.getName())
                 .part(user.getPart())
+                .token(token)
                 .build();
     }
 

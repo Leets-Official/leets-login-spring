@@ -12,7 +12,8 @@ public enum ErrorCode {
     INVALID_ID(404, "INVALID_ID", "올바르지 않은 아이디입니다."),
     INVALID_PASSWORD(404, "INVALID_PASSWORD", "올바르지 않은 비밀번호입니다."),
     USER_CONFLICT(409, "USER_CONFLICT", "이미 가입된 계정입니다."),
-    ID_CONFLICT(409, "ID_CONFLICT", "이미 사용중인 아이디입니다.");
+    ID_CONFLICT(409, "ID_CONFLICT", "이미 사용중인 아이디입니다."),
+    INVALID_TIME(404, "INVALID_TIME", "출석체크가 불가능한 시간입니다."),;
     private final int httpStatus;
     private final String code;
     private final String message;

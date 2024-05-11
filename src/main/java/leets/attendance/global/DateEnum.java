@@ -2,8 +2,7 @@ package leets.attendance.global;
 
 
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
+
 
 
 public enum DateEnum {
@@ -31,5 +30,14 @@ public enum DateEnum {
             throw new IllegalArgumentException("Invalid week number: " + weekNumber);
         }
         return values()[weekNumber - 1];
+    }
+
+    public static DateEnum getByDate(LocalDate date) {
+        for (DateEnum week : DateEnum.values()) {
+            if (week.startDate.equals(date)) {
+                return week;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant found for the given date: " + date);
     }
 }

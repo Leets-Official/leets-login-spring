@@ -50,7 +50,7 @@ public class UserService {
         if(!user.getPassword().equals(password)){
             throw new InvalidPasswordException();
         }
-        String token = tokenProvider.createToken(user.getName());
+        String token = tokenProvider.createToken(user.getId());
         return UserResponse.builder()
                 .userId(user.getUserId())
                 .name(user.getName())

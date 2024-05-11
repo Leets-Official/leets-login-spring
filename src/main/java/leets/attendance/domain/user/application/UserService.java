@@ -8,7 +8,7 @@ import leets.attendance.domain.user.dto.UserRequest;
 import leets.attendance.domain.user.dto.UserResponse;
 import leets.attendance.domain.user.exception.InvalidIdException;
 import leets.attendance.domain.user.exception.InvalidPasswordException;
-import leets.attendance.domain.user.exception.UserConflictException;
+import leets.attendance.domain.user.exception.ConflictIdException;
 import leets.attendance.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class UserService {
     public UserResponse register(UserRequest userRequest) throws Exception{
         String id = userRequest.getId();
         if(userRepository.findById(id).isPresent()){
-            throw new UserConflictException();
+            throw new ConflictIdException();
         }
         User user = User.builder()
                 .id(id)
@@ -41,7 +41,7 @@ public class UserService {
 
     public UserResponse login(LoginRequest loginRequest) throws Exception{
         String id = loginRequest.getId();
-        if(!userRepository.findById(id).isPresent()){
+        if(userRepository.findById(id).isPresent()){
             throw new InvalidIdException();
         }
         String password = loginRequest.getPassword();
@@ -54,5 +54,12 @@ public class UserService {
                 .name(user.getName())
                 .part(user.getPart())
                 .build();
+    }
+
+    public String checkDuplicateId(String id) throws Exception{
+        if(userRepository.findById(id).isPresent()){
+            throw new ConflictIdException();
+        }
+        return id;
     }
 }

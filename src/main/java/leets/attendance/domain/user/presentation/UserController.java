@@ -7,6 +7,9 @@ import leets.attendance.domain.user.dto.UserResponse;
 import leets.attendance.global.ResponseDto;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 import static org.springframework.http.HttpStatus.OK;
 import static leets.attendance.domain.user.presentation.UserResponseMessage.*;
 
@@ -27,11 +30,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseDto register(@RequestBody UserRequest userRequest) throws Exception{
+    public ResponseDto<UserResponse> register(@RequestBody UserRequest userRequest) throws Exception{
         return ResponseDto.of(OK.value(),SUCCESS_REGISTER.getMessage(), userService.register(userRequest));
     }
 
     @GetMapping(value = "/check-duplicate-id")
-    public void checkDuplicateId() {
+    public ResponseDto<String> checkDuplicateId(@RequestBody Map<String,String> id) throws Exception{
+        System.out.println(id);
+        return ResponseDto.of(OK.value(),USABLE_ID.getMessage(),userService.checkDuplicateId(id.get("id")));
     }
 }

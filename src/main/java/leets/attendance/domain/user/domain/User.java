@@ -1,4 +1,4 @@
-package leets.attendance.domain.user.entity;
+package leets.attendance.domain.user.domain;
 
 import jakarta.persistence.*;
 import leets.attendance.domain.common.BaseTimeEntity;

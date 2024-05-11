@@ -1,15 +1,15 @@
 package leets.attendance.domain.user.application;
 
 
-import leets.attendance.domain.attendance.Repository.AttendanceRepository;
 import leets.attendance.domain.attendance.application.AttendanceService;
-import leets.attendance.domain.attendance.domain.Attendance;
 import leets.attendance.domain.user.domain.User;
+import leets.attendance.domain.user.dto.LoginRequest;
 import leets.attendance.domain.user.dto.UserRequest;
 import leets.attendance.domain.user.dto.UserResponse;
+import leets.attendance.domain.user.exception.InvalidIdException;
+import leets.attendance.domain.user.exception.InvalidPasswordException;
 import leets.attendance.domain.user.exception.UserConflictException;
 import leets.attendance.domain.user.repository.UserRepository;
-import leets.attendance.global.DateEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final AttendanceService attendanceService;
+
     public UserResponse register(UserRequest userRequest) throws Exception{
         String id = userRequest.getId();
         if(userRepository.findById(id).isPresent()){
@@ -31,6 +32,23 @@ public class UserService {
                 .build();
         userRepository.save(user);
         attendanceService.createInitialAttendance(user);
+        return UserResponse.builder()
+                .userId(user.getUserId())
+                .name(user.getName())
+                .part(user.getPart())
+                .build();
+    }
+
+    public UserResponse login(LoginRequest loginRequest) throws Exception{
+        String id = loginRequest.getId();
+        if(!userRepository.findById(id).isPresent()){
+            throw new InvalidIdException();
+        }
+        String password = loginRequest.getPassword();
+        User user = userRepository.findById(id).orElseThrow(Exception::new);
+        if(!user.getPassword().equals(password)){
+            throw new InvalidPasswordException();
+        }
         return UserResponse.builder()
                 .userId(user.getUserId())
                 .name(user.getName())

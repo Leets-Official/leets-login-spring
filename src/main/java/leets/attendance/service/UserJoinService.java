@@ -18,8 +18,10 @@ public class UserJoinService {
 
     public void register(UserDTO dto){
 
-
+        //중복 회원 검증
         validateDuplicateUser(dto);
+
+        //비밀번호 2차 확인
         validatePasswordInput(dto);
 
         userRepository.save(User.builder()

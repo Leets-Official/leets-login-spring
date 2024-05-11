@@ -2,6 +2,7 @@ package leets.attendance.domain.attendance.presentation;
 
 
 import leets.attendance.domain.attendance.application.AttendanceService;
+import leets.attendance.domain.attendance.dto.AttendanceResponseDto;
 import leets.attendance.global.dto.ResponseDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static leets.attendance.domain.attendance.presentation.AttendanceMessageEnum.UPDATE_SUCCESS;
+import static leets.attendance.domain.attendance.presentation.AttendanceMessageEnum.GET_SUCCESS;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -28,12 +29,12 @@ public class AttendanceController {
     }
 
     @GetMapping
-    public void getAttendances() {
-
+    public ResponseDto<AttendanceResponseDto> getAttendances(Authentication authentication) {
+        return ResponseDto.of(OK.value(),GET_SUCCESS.getMessage(),attendanceService.getAttendances(authentication));
     }
 
     @GetMapping(value = "/rates")
-    public void getAttendanceRates() {
-
+    public ResponseDto<String> getAttendanceRates(Authentication authentication) {
+        return ResponseDto.of(OK.value(),GET_SUCCESS.getMessage(),attendanceService.getAttendanceRates(authentication));
     }
 }

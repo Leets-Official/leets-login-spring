@@ -1,13 +1,19 @@
 package leets.attendance.domain.member.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PostPersist;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import leets.attendance.domain.attendance.entity.Attendance;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +46,22 @@ public class Member implements UserDetails {
     this.part = part;
     this.username = username;
     this.password = password;
+  }
+
+  @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+  private List<Attendance> attendances = new ArrayList<>();
+
+  @PostPersist
+  public void postPersist() {
+    LocalDate currentDate = LocalDate.of(2024, 3, 28);
+    List<Attendance> attendances = new ArrayList<>();
+
+    for (int i = 1; i <= 8; i++) {
+      Attendance attendance = new Attendance(this, i, currentDate.plusWeeks(i - 1));
+      attendances.add(attendance);
+    }
+
+    this.attendances = attendances;
   }
 
   @Override

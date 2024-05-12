@@ -27,7 +27,6 @@ public class JWTLoginFilter extends OncePerRequestFilter {
 
         //헤더 검증
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            System.out.println("token is null");
             filterChain.doFilter(request, response);
 
             return;

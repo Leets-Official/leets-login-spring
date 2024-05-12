@@ -9,12 +9,15 @@ import leets.attendance.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -46,8 +49,24 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        log.info("Unsuccessful authentication");
-        response.setStatus(401);
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        String errorMessage = "";
+
+        if (exception instanceof UsernameNotFoundException) {
+            errorMessage = "유저없음";
+            log.error(errorMessage);
+        } else if (exception instanceof BadCredentialsException) {
+            errorMessage = "비밀번호틀림";
+            log.error(errorMessage);
+        } else {
+            errorMessage = "로그인 정보를 다시 입력해주세요.";
+            log.error(errorMessage);
+        }
+
+        errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(errorMessage);
     }
 }

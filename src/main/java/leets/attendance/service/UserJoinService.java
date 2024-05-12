@@ -19,7 +19,7 @@ public class UserJoinService {
     public void register(UserDTO dto){
 
         //중복 회원 검증
-        validateDuplicateUser(dto);
+        validateDuplicateUser(dto.getUserid());
 
         //비밀번호 2차 확인
         validatePasswordInput(dto);
@@ -34,10 +34,10 @@ public class UserJoinService {
     }
 
     //중복 회원 검증
-    private void validateDuplicateUser(UserDTO dto) {
-        if(userRepository.existsByUserid(dto.getUserid())){
+    public void validateDuplicateUser(String userId) {
+        if(userRepository.existsByUserid(userId)){
             log.info("User already exists");
-            throw new IllegalStateException("User already exists");
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
 
@@ -45,7 +45,7 @@ public class UserJoinService {
     private void validatePasswordInput(UserDTO dto) {
         if(!dto.getPassword().equals(dto.getConfirmPassword())){
             log.info("Password does not match");
-            throw new IllegalStateException("Password does not match");
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
     }
 }

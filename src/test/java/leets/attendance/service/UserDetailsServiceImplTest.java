@@ -42,7 +42,7 @@ class UserDetailsServiceImplTest {
     //없는 회원을 검색하면 예외를 제대로 반환하는지 확인
     @Test
     @Transactional
-    void 빈_회원조회_테스트() {
+    void 없는_회원조회_테스트() {
         //given
         User user = User.builder()
                 .userid("test")

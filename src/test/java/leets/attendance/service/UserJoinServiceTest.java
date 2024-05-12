@@ -38,6 +38,11 @@ class UserJoinServiceTest {
         assertThat((userRepository.findByUserid(userDTO.getUserid())).getUsername()).isEqualTo(userDTO.getUserid());
     }
 
+
+    /*
+    중복회원 검증을 할 때 UserJoinService의 validateDuplicateUser 메소드를 통해 확인하므로
+    해당 메소드에 대한 테스트는 따로 구현하지 않았음
+     */
     @Test
     @Transactional
     void 중복회원_검증_테스트() {
@@ -62,7 +67,7 @@ class UserJoinServiceTest {
         //then
         IllegalStateException e = assertThrows(IllegalStateException.class, () ->
             userJoinService.register(dto2));
-        assertThat(e.getMessage()).isEqualTo("User already exists");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 
     @Test
@@ -82,6 +87,6 @@ class UserJoinServiceTest {
         //then
         IllegalStateException e = assertThrows(IllegalStateException.class, () ->
             userJoinService.register(userDTO));
-        assertThat(e.getMessage()).isEqualTo("Password does not match");
+        assertThat(e.getMessage()).isEqualTo("비밀번호가 일치하지 않습니다.");
     }
 }

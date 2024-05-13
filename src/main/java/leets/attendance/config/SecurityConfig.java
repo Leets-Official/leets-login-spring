@@ -53,6 +53,10 @@ public class SecurityConfig {
                         .requestMatchers("/swagger/**").permitAll()
                         .anyRequest().authenticated())
 
+                .logout((logout) -> logout
+                        .logoutSuccessUrl("/login")
+                        .permitAll())
+
                 .addFilterBefore(new JWTLoginFilter(jwtUtil), CustomLoginFilter.class)
                 .addFilterAt(customLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session->session

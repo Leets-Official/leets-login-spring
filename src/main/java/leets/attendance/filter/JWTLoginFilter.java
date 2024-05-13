@@ -28,7 +28,6 @@ public class JWTLoginFilter extends OncePerRequestFilter {
         //헤더 검증
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-
             return;
         }
 

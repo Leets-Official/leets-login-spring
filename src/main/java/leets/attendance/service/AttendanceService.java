@@ -21,33 +21,44 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
     private final UserRepository userRepository;
 
+    //해당 날짜에 출석체크
     public void makeAttendance(String userid, LocalDate date) {
         User user = userRepository.findByUserid(userid);
         List<Attendances> attendancesList = attendanceRepository.findByUserAndDate(user, date);
-        //해당 유저와 날짜에 대해서 출석이 있다면 날짜가 오늘과 같은지 확인하고 attendance를 true로 바꿈
-        if (!attendancesList.isEmpty()) {
-            boolean alreadyAttendedToday = attendancesList.stream()
-                    .anyMatch(attendance -> attendance.getDate().isEqual(date));
-            if (alreadyAttendedToday) {
-                Optional<Attendances> attendanceToday = attendancesList.stream()
-                        .filter(attendance -> attendance.getDate().equals(date))
-                        .findFirst();
 
-                Attendances attendance = attendanceToday.get();
-                if(!attendance.getAttendance()) {
-                    attendance.setAttendance(true);
-                    attendanceRepository.save(attendance);
-                    log.info("출석되었습니다.");
-                } else{
-                    log.info("이미 출석되었습니다.");
-                }
+        if (attendancesList.isEmpty()) {
+            log.error("해당 날짜에 정기 모임이 없습니다.");
+            return;
+        }
+
+        boolean alreadyAttendedToday = attendancesList.stream()
+                .anyMatch(attendance -> attendance.getDate().isEqual(date));
+
+        if (!alreadyAttendedToday) {
+            log.error("해당 날짜에 정기 모임이 없습니다.");
+            return;
+        }
+
+        Optional<Attendances> attendanceToday = attendancesList.stream()
+                .filter(attendance -> attendance.getDate().equals(date))
+                .findFirst();
+
+        if (attendanceToday.isPresent()) {
+            Attendances attendance = attendanceToday.get();
+            if (!attendance.getAttendance()) {
+                updateAttendance(attendance, true);
+                log.info("출석되었습니다.");
             } else {
-                log.error("해당 날짜에 해당하는 모임이 없습니다.");
+                log.info("이미 출석되었습니다.");
             }
-        }else {
-            log.error("해당 날짜에 해당하는 모임이 없습니다.");
         }
     }
+
+    private void updateAttendance(Attendances attendance, boolean isAttended) {
+        attendance.setAttendance(isAttended);
+        attendanceRepository.save(attendance);
+    }
+
 
     //출석률 반환
     public double getAttendanceRate(String userid, LocalDate date) {

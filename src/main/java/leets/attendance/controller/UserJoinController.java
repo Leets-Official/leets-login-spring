@@ -1,12 +1,10 @@
 package leets.attendance.controller;
 
-import jakarta.validation.Valid;
 import leets.attendance.dto.UserDTO;
 import leets.attendance.service.UserJoinService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,19 +19,13 @@ public class UserJoinController {
     private final UserJoinService userJoinService;
 
     @PostMapping("/users/register")
-    public ResponseEntity<String> registerUser(@Valid UserDTO dto, BindingResult result){
-        if(result.hasErrors()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: Please check your input.");
-        }
+    public ResponseEntity<String> registerUser(UserDTO dto){
         userJoinService.register(dto);
         return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/users/login")).build();
     }
 
     @GetMapping("/users/check-duplicate-id")
-    public ResponseEntity<String> checkDuplicateId(@Valid UserDTO dto, BindingResult result){
-        if(result.hasErrors()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: Please check your input.");
-        }
+    public ResponseEntity<String> checkDuplicateId(UserDTO dto){
         try {
             userJoinService.validateDuplicateUser(dto.getUserid());
         } catch (IllegalStateException e){

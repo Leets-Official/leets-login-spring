@@ -49,6 +49,7 @@ public class AttendanceService {
         }
     }
 
+    //출석률 반환
     public double getAttendanceRate(String userid, LocalDate date) {
         User user = userRepository.findByUserid(userid);
         List<Attendances> attendancesList = attendanceRepository.findByUserAndDateBefore(user, LocalDate.of(2024,6,10));
@@ -64,6 +65,7 @@ public class AttendanceService {
         return percent;
     }
 
+    //출석 데이터 반환
     public List<Attendances> getAllAttendanceRecord(String userid){
         User user = userRepository.findByUserid(userid);
         List<Attendances> allAttendances = attendanceRepository.findAllByUser(user);

@@ -1,5 +1,6 @@
 package leets.attendance.filter;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ public class JWTLoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
-        //헤더 검증
+        //헤더 토큰 유무 검증
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -35,11 +36,14 @@ public class JWTLoginFilter extends OncePerRequestFilter {
         String token = authorizationHeader.split(" ")[1];
 
         //토큰 소멸 검증
-        if (jwtUtil.isExpired(token)){
-            log.info("JWT Token is expired");
+        try {
+           jwtUtil.isExpired(token);
+        } catch (JwtException e){
+            log.error("JWT Token is expired");
             filterChain.doFilter(request, response);
             return;
         }
+
         String userId = jwtUtil.getUserId(token);
 
         User user = User.builder()

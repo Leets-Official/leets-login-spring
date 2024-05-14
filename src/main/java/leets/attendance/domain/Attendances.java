@@ -21,14 +21,10 @@ public class Attendances {
     private LocalDate date;
     private Boolean attendance;
 
-//    @Enumerated
-//    private WeekEnum weekEnum;
-
     @Builder
     public Attendances(User user, LocalDate date, Boolean attendance) {
         this.user = user;
         this.date = date;
         this.attendance = attendance;
-//        this.weekEnum = weekEnum;
     }
 }

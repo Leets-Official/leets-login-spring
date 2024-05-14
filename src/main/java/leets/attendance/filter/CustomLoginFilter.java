@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -53,20 +52,17 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         String errorMessage = "";
 
         if (exception instanceof UsernameNotFoundException) {
-            errorMessage = "유저없음";
+            errorMessage = "user not found";
             log.error(errorMessage);
         } else if (exception instanceof BadCredentialsException) {
-            errorMessage = "비밀번호틀림";
+            errorMessage = "password incorrect";
             log.error(errorMessage);
         } else {
-            errorMessage = "로그인 정보를 다시 입력해주세요.";
+            errorMessage = "userid or password incorrect";
             log.error(errorMessage);
         }
 
-        errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
-
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setCharacterEncoding("UTF-8");
         response.getWriter().write(errorMessage);
     }
 }

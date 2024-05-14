@@ -2,7 +2,6 @@ package leets.attendance.controller;
 
 import leets.attendance.domain.Attendances;
 import leets.attendance.service.AttendanceService;
-import leets.attendance.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,13 +17,11 @@ import java.util.List;
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
-    private final UserDetailsServiceImpl userDetailsService;
 
     @PatchMapping("/attendances")
     public ResponseEntity<String> updateAttendances() {
-
         String  userid = SecurityContextHolder.getContext().getAuthentication().getName();
-        attendanceService.makeAttendance(userid, LocalDate.of(2024,3,29));
+        attendanceService.makeAttendance(userid, LocalDate.now());
         return ResponseEntity.ok("Attendance updated");
     }
 
@@ -38,9 +35,7 @@ public class AttendanceController {
     @GetMapping("/attendances/rates")
     public ResponseEntity<Double> getAttendances() {
         String  userid = SecurityContextHolder.getContext().getAuthentication().getName();
-        double attendance = attendanceService.getAttendanceRate(userid, LocalDate.of(2024, 5, 29));
-        return ResponseEntity.ok(attendance);
+        double attendanceRate = attendanceService.getAttendanceRate(userid, LocalDate.now());
+        return ResponseEntity.ok(attendanceRate);
     }
-
-
 }

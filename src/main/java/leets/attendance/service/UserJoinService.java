@@ -24,7 +24,6 @@ public class UserJoinService {
 
         //중복 회원 검증
         validateDuplicateUser(dto.getUserid());
-
         //비밀번호 2차 확인
         validatePasswordInput(dto);
 

@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (foundUser == null) {
             log.error("User not found");
             //스프링 시큐리티가 알아서 예외를 처리해주기 때문에 따로 구현하지 않아도됨
-            throw new UsernameNotFoundException("존재하지 않는 ID 입니다.");
+            throw new UsernameNotFoundException("user not found");
         }
         return foundUser;
     }

@@ -12,6 +12,7 @@ import java.util.Date;
 @Component
 public class JWTUtil {
 
+    private static final int ACCESS_TOKEN_VALIDITY = 1000*60*30;
     private SecretKey secretKey;
 
     public JWTUtil(@Value("${jwt.secret}")String secret) {
@@ -24,7 +25,7 @@ public class JWTUtil {
         return Jwts.builder()
                 .claim("userid", userid)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000*60*30))//30분
+                .expiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY))//30분
                 .signWith(secretKey)
                 .compact();
     }

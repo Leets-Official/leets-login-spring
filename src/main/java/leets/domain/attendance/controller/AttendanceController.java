@@ -1,5 +1,6 @@
 package leets.domain.attendance.controller;
 
+import leets.domain.attendance.controller.dto.AttendanceRateResponse;
 import leets.domain.attendance.controller.dto.AttendanceResponse;
 import leets.domain.attendance.controller.dto.AttendanceSaveRequest;
 import leets.domain.attendance.service.AttendanceService;
@@ -29,7 +30,14 @@ public class AttendanceController {
 
     @GetMapping
     public ResponseEntity<List<AttendanceResponse>> getAttendances(AuthUser authUser) {
-        List<AttendanceResponse> responses = attendanceService.getReservations(authUser.getId());
+        List<AttendanceResponse> responses = attendanceService.getReservations(authUser);
+
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/rates")
+    public ResponseEntity<AttendanceRateResponse> getAttendanceRate(AuthUser authUser) {
+        AttendanceRateResponse responses = attendanceService.getAttendanceRate(authUser);
 
         return ResponseEntity.ok(responses);
     }

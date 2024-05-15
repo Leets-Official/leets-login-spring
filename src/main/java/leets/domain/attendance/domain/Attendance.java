@@ -33,4 +33,16 @@ public class Attendance {
         this.status = status;
         this.localDateTime = localDateTime;
     }
+
+    public boolean isAttendant() {
+        return status == AttendanceStatus.ATTENDANT;
+    }
+
+    public boolean isAbsent() {
+        return status == AttendanceStatus.ABSENT;
+    }
+
+    public boolean isLate() {
+        return status == AttendanceStatus.LATE;
+    }
 }

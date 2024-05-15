@@ -7,13 +7,10 @@ import leets.attendance.domain.attendance.dto.AttendanceInfo;
 import leets.attendance.domain.attendance.dto.AttendanceResponseDto;
 import leets.attendance.domain.attendance.exception.InvalidDayException;
 import leets.attendance.domain.attendance.presentation.AttendanceMessageEnum;
-import leets.attendance.domain.user.application.UserService;
 import leets.attendance.domain.user.domain.User;
 import leets.attendance.domain.user.repository.UserRepository;
 import leets.attendance.global.DateEnum;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +96,7 @@ public class AttendanceService {
         LocalDateTime date = LocalDateTime.now();
         double trueValue = attendanceRepository.findByUserAndIsAttend(user,true).size();
         double dateSize = attendanceRepository.findByUser(user).stream().filter(a -> a.getWeek() <= dateToInt(date)).toList().size();
-
-        return (trueValue / dateSize) * 100 +"%";
+        double result = (trueValue / dateSize) * 100;
+        return (int) result + "%";
     }
 }

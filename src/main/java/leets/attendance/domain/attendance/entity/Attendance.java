@@ -12,10 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
 import leets.attendance.domain.member.entity.Member;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class Attendance {
 
   @Id
@@ -37,5 +39,9 @@ public class Attendance {
     this.member = member;
     this.week = week;
     this.date = date;
+  }
+
+  public void attend() {
+    this.attendanceStatus = AttendanceStatus.ATTENDANCE;
   }
 }

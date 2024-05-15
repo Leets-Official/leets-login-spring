@@ -1,4 +1,4 @@
-package leets.global.config.config;
+package leets.global.config;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Component
 @RequiredArgsConstructor
-public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
+public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final CookieProvider cookieManager = new CookieProvider();
     private final JwtProvider jwtProvider;

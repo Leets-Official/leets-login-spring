@@ -1,7 +1,7 @@
-package leets.global.config.config;
+package leets.global.config;
 
 public class AuthUser {
-    
+
     private final Long id;
     private final String name;
 

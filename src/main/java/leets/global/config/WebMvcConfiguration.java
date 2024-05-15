@@ -1,6 +1,6 @@
-package leets.global.config.config;
+package leets.global.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -8,10 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Configuration
-@RequiredArgsConstructor
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private final HandlerMethodArgumentResolver argumentResolver;
+
+    public WebMvcConfiguration(@Qualifier("authUserArgumentResolver") HandlerMethodArgumentResolver argumentResolver) {
+        this.argumentResolver = argumentResolver;
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {

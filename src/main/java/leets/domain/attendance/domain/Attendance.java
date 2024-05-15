@@ -24,4 +24,13 @@ public class Attendance {
 
     @Column(nullable = false)
     private LocalDateTime localDateTime;
+
+    public Attendance() {
+    }
+
+    public Attendance(User user, AttendanceStatus status, LocalDateTime localDateTime) {
+        this.user = user;
+        this.status = status;
+        this.localDateTime = localDateTime;
+    }
 }

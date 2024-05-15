@@ -1,0 +1,35 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    MODE: MySQL
+    username: sa
+    generate-unique-name: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+jwt:
+  issuer: syeonie0526@gmail.com
+  secret_key: study-springboot
+  header: Authorization
+  secret: 57e28d84f356b2af66d4fbd5d38efece93455f1b0fac02a28f4be437d9172462
+  token-validity-in-seconds: 86400
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder=TRACE:

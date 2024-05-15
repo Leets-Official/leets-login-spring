@@ -12,11 +12,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(LeetsException.class)
     public ProblemDetail handleLeetsException(LeetsException e) {
+        e.printStackTrace();
         return ProblemDetail.forStatusAndDetail(e.getHttpStatus(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleException(Exception e) {
+        e.printStackTrace();
         return ProblemDetail.forStatusAndDetail(INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

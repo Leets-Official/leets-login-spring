@@ -1,8 +1,8 @@
 package leets.domain.attendance.service;
 
 import leets.domain.attendance.controller.dto.AttendanceResponse;
+import leets.domain.attendance.controller.dto.AttendanceSaveRequest;
 import leets.domain.attendance.domain.Attendance;
-import leets.domain.attendance.domain.AttendanceStatus;
 import leets.domain.attendance.domain.repository.AttendanceRepository;
 import leets.domain.user.domain.User;
 import leets.domain.user.domain.repository.UserRepository;
@@ -31,11 +31,11 @@ public class AttendanceService {
                 .toList();
     }
 
-    public AttendanceResponse attendant(AuthUser authUser) {
+    public AttendanceResponse attendant(AuthUser authUser, AttendanceSaveRequest request) {
         User user = userRepository.findById(authUser.getId())
                 .orElseThrow(() -> new LeetsException(NOT_FOUND, "사용자를 찾을 수 없습니다"));
 
-        Attendance attendance = new Attendance(user, AttendanceStatus.ATTENDANT, LocalDateTime.now());
+        Attendance attendance = new Attendance(user, request.status(), LocalDateTime.now());
         Attendance save = attendanceRepository.save(attendance);
 
         return new AttendanceResponse(save.getId(), save.getStatus(), save.getLocalDateTime());

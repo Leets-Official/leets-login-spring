@@ -1,9 +1,9 @@
-package leets.domain.attendance.service;
+package leets.domain.user.service;
 
-import leets.domain.attendance.controller.dto.LoginRequest;
-import leets.domain.attendance.controller.dto.TokenResponse;
-import leets.domain.attendance.domain.user.User;
-import leets.domain.attendance.domain.user.repository.UserRepository;
+import leets.domain.user.controller.dto.LoginRequest;
+import leets.domain.user.controller.dto.TokenResponse;
+import leets.domain.user.domain.User;
+import leets.domain.user.domain.repository.UserRepository;
 import leets.global.EncryptHelper;
 import leets.global.auth.JwtProvider;
 import leets.global.exception.LeetsException;

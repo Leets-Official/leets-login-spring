@@ -1,12 +1,12 @@
-package leets.domain.attendance.controller;
+package leets.domain.user.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import leets.domain.attendance.controller.dto.JoinIdDuplicationResponse;
-import leets.domain.attendance.controller.dto.LoginRequest;
-import leets.domain.attendance.controller.dto.TokenResponse;
-import leets.domain.attendance.domain.user.User;
-import leets.domain.attendance.service.UserService;
+import leets.domain.user.controller.dto.JoinIdDuplicationResponse;
+import leets.domain.user.controller.dto.LoginRequest;
+import leets.domain.user.controller.dto.TokenResponse;
+import leets.domain.user.domain.User;
+import leets.domain.user.service.UserService;
 import leets.global.auth.CookieProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,7 @@ package leets.global.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import leets.domain.attendance.domain.user.User;
+import leets.domain.user.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

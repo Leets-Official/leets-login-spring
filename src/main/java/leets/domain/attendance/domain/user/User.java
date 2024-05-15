@@ -24,9 +24,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Position position;
 
-    public User encodePassword(String encode) {
+    public void encodePassword(String encode) {
         this.password = encode;
-        return this;
     }
 }
 

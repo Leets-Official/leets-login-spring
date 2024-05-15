@@ -11,6 +11,6 @@ public class BcryptImpl implements EncryptHelper {
 
     @Override
     public boolean isMatch(String password, String hashed) {
-        return BCrypt.checkpw(password,hashed);
+        return BCrypt.checkpw(password, hashed);
     }
 }

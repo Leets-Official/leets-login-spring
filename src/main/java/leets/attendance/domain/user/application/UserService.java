@@ -23,4 +23,9 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public boolean checkDuplicateId(String joinId) {
+        return userRepository.existsByJoinId(joinId);
+    }
+
 }

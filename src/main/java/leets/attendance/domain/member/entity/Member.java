@@ -53,6 +53,9 @@ public class Member implements UserDetails {
 
   @PostPersist
   public void postPersist() {
+    /**
+     * 동아리 시작 일을 지정해줘야 합니다.
+     */
     LocalDate currentDate = LocalDate.of(2024, 3, 28);
     List<Attendance> attendances = new ArrayList<>();
 

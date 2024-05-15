@@ -17,9 +17,14 @@ public class UserController {
 
     //회원가입
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody JoinDto joinDto){
-        userService.register(joinDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> register(@RequestBody JoinDto joinDto){
+        boolean isSamePassword = userService.register(joinDto);
+        if (isSamePassword) {
+            return ResponseEntity.status(HttpStatus.OK).body("비밀번호가 확인 되었습니다!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("비밀번호가 일치하지 않습니다!");
+        }
     }
 
     //id 중복 확인
@@ -30,7 +35,7 @@ public class UserController {
         if (isDuplicated) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 아이디입니다!");
         } else {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.OK).body("사용 가능한 아이디입니다!");
         }
     }
 

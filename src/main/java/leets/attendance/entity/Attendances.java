@@ -22,11 +22,4 @@ public class Attendances {
     private User user;
     private LocalDate date;
     private Boolean attendance;
-
-    @Builder
-    public Attendances(User user, LocalDate date, Boolean attendance) {
-        this.user = user;
-        this.date = date;
-        this.attendance = attendance;
-    }
 }

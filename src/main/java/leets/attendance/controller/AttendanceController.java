@@ -1,6 +1,6 @@
 package leets.attendance.controller;
 
-import leets.attendance.entity.Attendances;
+import leets.attendance.domain.Attendances;
 import leets.attendance.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

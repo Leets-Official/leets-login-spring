@@ -1,6 +1,6 @@
 package leets.attendance.dto;
 
-import leets.attendance.entity.User;
+import leets.attendance.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

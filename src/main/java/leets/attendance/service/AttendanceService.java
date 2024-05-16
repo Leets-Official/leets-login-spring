@@ -1,7 +1,7 @@
 package leets.attendance.service;
 
-import leets.attendance.entity.Attendances;
-import leets.attendance.entity.User;
+import leets.attendance.domain.Attendances;
+import leets.attendance.domain.User;
 import leets.attendance.repository.AttendanceRepository;
 import leets.attendance.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

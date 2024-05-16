@@ -1,4 +1,4 @@
-package leets.attendance.entity;
+package leets.attendance.domain;
 
 import java.time.LocalDate;
 

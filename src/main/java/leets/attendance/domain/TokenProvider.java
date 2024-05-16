@@ -1,4 +1,4 @@
-package leets.attendance.util;
+package leets.attendance.domain;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

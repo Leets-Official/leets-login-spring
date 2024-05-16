@@ -1,6 +1,6 @@
 package leets.attendance.repository;
 
-import leets.attendance.entity.User;
+import leets.attendance.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

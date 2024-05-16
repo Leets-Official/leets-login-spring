@@ -1,4 +1,4 @@
-package leets.attendance.entity;
+package leets.attendance.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

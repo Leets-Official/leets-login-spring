@@ -1,7 +1,7 @@
 package leets.attendance.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import leets.attendance.entity.User;
+import leets.attendance.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package leets.attendance.config;
 
 import leets.attendance.filter.JwtFilter;
-import leets.attendance.util.TokenProvider;
+import leets.attendance.domain.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

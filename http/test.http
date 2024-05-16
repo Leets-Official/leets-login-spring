@@ -1,0 +1,54 @@
+### 1. 회원가입
+POST localhost:8080/users/register
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test",
+  "confirmPassword": "test",
+  "name": "test",
+  "partName": "test"
+}
+
+### 2. 로그인
+POST localhost:8080/users/login
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test",
+  "confirmPassword": "test",
+  "name": "test",
+  "partName": "test"
+}
+
+### 3. 중복 아이디 확인
+GET localhost:8080/users/check-duplicate-id
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test",
+  "confirmPassword": "test",
+  "name": "test",
+  "partName": "test"
+}
+
+
+### 4. 출석( 결석 )
+PATCH localhost:8080/attendances
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 5. 출석 정보 모두 조회
+GET localhost:8080/attendances
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### 6. 출석률 조회
+GET localhost:8080/attendances/rates
+Authorization: Bearer {{access_token}}
+Content-Type: application/json

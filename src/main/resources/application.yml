@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: attendance
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/attendance
+    username: root
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+          show_sql: true
+
+
+jwt:
+  issuer: ${jwt.issuer}
+  secret_key: ${jwt.secret_key}

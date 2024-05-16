@@ -1,1 +1,3 @@
 spring.application.name=attendance
+jwt.issuer=
+jwt.secret_key=

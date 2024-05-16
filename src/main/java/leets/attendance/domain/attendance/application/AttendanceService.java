@@ -27,7 +27,7 @@ public class AttendanceService {
     private final UserRepository userRepository;
 
     public void createInitialAttendance(User user) {
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= DateEnum.values().length; i++) {
             Attendance attendance = Attendance.builder()
                     .isAttend(false)
                     .week(i)

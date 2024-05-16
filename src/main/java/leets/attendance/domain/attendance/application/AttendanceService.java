@@ -42,12 +42,8 @@ public class AttendanceService {
         String id = authentication.getName();
         User user = userRepository.findById(id).get();
         LocalDateTime date = LocalDateTime.now();
-        if (!(date.getDayOfWeek() == DayOfWeek.THURSDAY)) {
-            throw new InvalidDayException();
-        }
         DateEnum dateEnum = isValidWeek(date);
-        String weekNumberStr = dateEnum.name().replace("WEEK_", "");
-        Attendance attendance = attendanceRepository.findByWeekAndUser(Integer.parseInt(weekNumberStr),user).get();
+        Attendance attendance = attendanceRepository.findByWeekAndUser(parseWeek(dateEnum),user).get();
         Attendance newAttendance = Attendance.builder()
                 .attendanceId(attendance.getAttendanceId())
                 .isAttend(true)
@@ -60,7 +56,7 @@ public class AttendanceService {
 
     public DateEnum isValidWeek(LocalDateTime today) {
         try {
-            if (today.getHour() != 19) {
+            if (today.getHour() != 19 || !(today.getDayOfWeek() == DayOfWeek.THURSDAY)) {
                 throw new InvalidDayException();
             }
             LocalDate validDate = today.with(DayOfWeek.THURSDAY).toLocalDate();
@@ -68,6 +64,11 @@ public class AttendanceService {
         } catch (IllegalArgumentException e) {
             throw new InvalidDayException();
         }
+    }
+
+    public Integer parseWeek(DateEnum dateEnum) {
+        String weekNumberStr = dateEnum.name().replace("WEEK_", "");
+        return Integer.parseInt(weekNumberStr);
     }
 
     public AttendanceResponseDto getAttendances(Authentication authentication) {
@@ -87,7 +88,6 @@ public class AttendanceService {
     public int dateToInt(LocalDateTime date) {
         LocalDate localDate = date.with(DayOfWeek.THURSDAY).toLocalDate();
         String weekNumberStr = DateEnum.getByDate(localDate).name().replace("WEEK_", "");
-
         return Integer.parseInt(weekNumberStr);
     }
 

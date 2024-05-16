@@ -33,6 +33,7 @@ public class UserRequestDTO {
         return User.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
+                .confirmPassword(passwordEncoder.encode(confirmPassword))
                 .name(name)
                 .partName(partName)
                 .roles(Collections.singletonList("ROLE_USER"))

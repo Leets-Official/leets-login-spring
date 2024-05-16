@@ -2,15 +2,15 @@ package leets.attendance.domain.user.domain;
 
 import jakarta.persistence.*;
 import leets.attendance.domain.common.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
 @Table(name = "users")
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
@@ -28,6 +28,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String part;
+    private Part part;
 }

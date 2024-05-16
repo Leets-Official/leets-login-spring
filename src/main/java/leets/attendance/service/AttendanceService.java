@@ -58,7 +58,7 @@ public class AttendanceService {
     //출석률 반환
     public double getAttendanceRate(String userid, LocalDate date) {
         User user = userRepository.findByUsername(userid);
-        List<Attendances> attendancesList = attendanceRepository.findByUserAndDateBefore(user, date);
+        List<Attendances> attendancesList = attendanceRepository.findByUserAndDate(user, date);
         List<Attendances> totalAttendancesList = attendanceRepository.findByUser(user);
         double totalCount = totalAttendancesList.size();
 

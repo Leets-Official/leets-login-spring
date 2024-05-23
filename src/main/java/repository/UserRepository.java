@@ -1,4 +1,4 @@
-package service;
+package repository;
 import domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

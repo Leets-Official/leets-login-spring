@@ -1,14 +1,15 @@
 package controller;
 
 import config.JwtUtil;
-import domain.User;
-import service.UserService;
+import dto.AuthRequest;
+import dto.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,54 +23,21 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserDetailsService userDetailsService;
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return jwtUtil.generateToken(authRequest.getUsername());
-        } catch (Exception e) {
-            return "Invalid username or password";
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).build();
         }
-    }
 
-    @PostMapping("/register")
-    public String register(@RequestBody AuthRequest authRequest) {
-        if (userService.findByUsername(authRequest.getUsername()).isPresent()) {
-            return "Username is already taken";
-        }
-        User user = new User();
-        user.setUsername(authRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
-        userService.saveUser(user);
-        return "User registered successfully";
-    }
-}
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails);
 
-class AuthRequest {
-    private String username;
-    private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        return ResponseEntity.ok(new AuthResponse(jwt));
     }
 }

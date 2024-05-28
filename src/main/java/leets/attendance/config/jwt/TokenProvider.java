@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.Base64;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +31,9 @@ public class TokenProvider {
 
     private String makeToken(Date expiry, User user) {
         Date now = new Date();
-        String encodedEmail = Base64.getEncoder().encodeToString(user.getEmail().getBytes());
+        //String encodedEmail = Base64.getEncoder().encodeToString(user.getEmail().getBytes());
+        String encodedEmail = Base64.getUrlEncoder().encodeToString(user.getEmail().getBytes());
+        //String encodedEmail = user.getEmail();
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())

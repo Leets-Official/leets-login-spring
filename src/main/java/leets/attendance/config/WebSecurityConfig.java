@@ -51,8 +51,8 @@ public class WebSecurityConfig {
 
         //권한 규칙
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/signup", "/user").permitAll()
-                .requestMatchers("/users").authenticated() // "/users"에 대한 인증 필요
+                .requestMatchers("/users/login", "/users/register", "/users/check-duplicate-id").permitAll()
+                .requestMatchers("/attendances", "/attendances/rates").authenticated() // "/users"에 대한 인증 필요
                 .anyRequest().authenticated());
 
         // 보안 필터 체인 반환

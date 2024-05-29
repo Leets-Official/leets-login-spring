@@ -4,6 +4,7 @@ import leets.attendance.domain.User;
 import leets.attendance.dto.AddUserRequest;
 import leets.attendance.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
+    @Autowired
     private final UserRepository userRepository;
 
     public User save(AddUserRequest dto) {
+        User created = dto.toEntity();
+        if (created.getEmail() == null || created.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
+        }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String password = created.getPassword() != null ? created.getPassword() : "";
 
-        return userRepository.save(User.builder()
-                .email(dto.getEmail())
-                .password(encoder.encode(dto.getPassword()))
-                .build());
+        return userRepository.save(created);
     }
 
     public User findById(Long userId) {

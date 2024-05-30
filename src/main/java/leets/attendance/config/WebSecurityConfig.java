@@ -1,5 +1,6 @@
 package leets.attendance.config;
 
+import leets.attendance.config.jwt.JwtProperties;
 import leets.attendance.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import leets.attendance.config.jwt.TokenProvider;
 
 @RequiredArgsConstructor
 @Configuration
@@ -54,7 +57,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/users/login", "/users/register", "/users/check-duplicate-id").permitAll()
                 .requestMatchers("/attendances", "/attendances/rates").authenticated() // "/users"에 대한 인증 필요
                 .anyRequest().authenticated());
-
+        JwtProperties jwtProperties = new JwtProperties();
+        http.addFilterBefore(new TokenAuthenticationFilter(new TokenProvider(jwtProperties)), UsernamePasswordAuthenticationFilter.class);
         // 보안 필터 체인 반환
         return http.build();
     }

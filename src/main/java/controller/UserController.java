@@ -1,4 +1,4 @@
-package controller.UserController;
+package controller;
 
 import dto.RegisterRequest;
 import dto.AuthResponse;
@@ -28,7 +28,7 @@ public class UserController {
                 new UsernamePasswordAuthenticationToken(registerRequest.getUserId(), registerRequest.getPassword())
         );
         final var userDetails = userDetailsService.loadUserByUsername(registerRequest.getUserId());
-        final var jwt = jwtUtil.generateToken(userDetails.getUsername());
+        final var jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 }

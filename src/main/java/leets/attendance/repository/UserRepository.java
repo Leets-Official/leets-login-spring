@@ -11,6 +11,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByEmail(String email); // 네임드 쿼리
 
+
     @Override
     ArrayList<User> findAll();
 

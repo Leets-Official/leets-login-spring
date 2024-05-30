@@ -30,7 +30,7 @@ public class AttendanceApiController {
         Long userId = tokenProvider.getId(jwtToken);
 
         try {
-            Attendance updatedAttendance = attendanceService.saveAttend(attendanceRequest.getWeek(), userId);
+            Attendance updatedAttendance = attendanceService.saveAttend(attendanceRequest.getWeekEnum(), userId);
             return ResponseEntity.ok(updatedAttendance);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);

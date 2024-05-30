@@ -1,10 +1,7 @@
 package leets.attendance.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +12,7 @@ import java.util.List;
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 public class User implements UserDetails {
 
@@ -26,11 +24,17 @@ public class User implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+
     @Column(name = "password")
     private String password;
 
     @Column(name = "nickname", unique = true)
     private String nickname;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Attendance attendance;
+
+
 
     @Builder
     public User(String email, String password, String nickname) {
@@ -54,12 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
+        return null;
     }
 
     @Override

@@ -20,14 +20,14 @@ public class UserService {
         if (created.getEmail() == null || created.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String password = created.getPassword() != null ? created.getPassword() : "";
-
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        created.setPassword(encoder.encode(password));
         return userRepository.save(created);
     }
 
-    public User findById(Long userId) {
-        return userRepository.findById(userId)
+    public User findById(Long id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 

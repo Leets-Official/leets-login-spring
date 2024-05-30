@@ -31,9 +31,7 @@ public class TokenProvider {
 
     private String makeToken(Date expiry, User user) {
         Date now = new Date();
-        //String encodedEmail = Base64.getEncoder().encodeToString(user.getEmail().getBytes());
         String encodedEmail = Base64.getUrlEncoder().encodeToString(user.getEmail().getBytes());
-        //String encodedEmail = user.getEmail();
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
@@ -50,7 +48,6 @@ public class TokenProvider {
             Jwts.parser()
                     .setSigningKey(jwtProperties.getSecretKey())
                     .parseClaimsJws(token);
-
             return true;
         } catch (Exception e) {
             return false;
@@ -63,10 +60,10 @@ public class TokenProvider {
         Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(claims.getSubject
-                (), "", authorities), token, authorities);
+                (), "dummyPassword", authorities), token, authorities);
     }
 
-    public Long getUserId(String token) {
+    public Long getId(String token) {
         Claims claims = getClaims(token);
         return claims.get("id", Long.class);
     }
@@ -77,4 +74,6 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+
 }

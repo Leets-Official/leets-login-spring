@@ -15,14 +15,14 @@ public class RefreshToken {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "user_id", nullable = false, unique = true)
-    private Long userId;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "refresh_token", nullable = false)
     private String refreshToken;
 
-    public RefreshToken(Long userId, String refreshToken) {
-        this.userId = userId;
+    public RefreshToken(String email, String refreshToken) {
+        this.email = email;
         this.refreshToken = refreshToken;
     }
 

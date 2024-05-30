@@ -5,6 +5,7 @@ import leets.attendance.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.print.DocFlavor;
 import java.time.Duration;
 
 @RequiredArgsConstructor
@@ -15,15 +16,14 @@ public class TokenService {
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
 
-    public String createNewAccessToken(String refreshToken) {
-        // 토큰 유효성 검사에 실패하면 예외 발생
-        if(!tokenProvider.validToken(refreshToken)) {
-            throw new IllegalArgumentException("Unexpected token");
+    public String createNewAccessToken(String email) {
+        // 이메일을 가지고 사용자 정보를 찾습니다.
+        User user = userService.findByEmail(email);
+
+        // 사용자 정보가 없으면 예외를 발생시킵니다.
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with email: " + email);
         }
-
-        Long userId = refreshTokenService.findByRefreshToken(refreshToken).getUserId();
-        User user = userService.findById(userId);
-
         return tokenProvider.generateToken(user, Duration.ofHours(2));
     }
 }

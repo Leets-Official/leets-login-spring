@@ -4,6 +4,7 @@ import leets.attendance.dto.CreateAccessTokenRequest;
 import leets.attendance.dto.CreateAccessTokenResponse;
 import leets.attendance.service.TokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TokenApiController {
 
+    @Autowired
     private final TokenService tokenService;
 
     @PostMapping("/api/token")

@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 @Table(name = "attendance")
 public class Attendance {
 
+    @OneToOne
+    @JoinColumn(name = "id")
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
